@@ -1,4 +1,4 @@
-
+#!/bin/bash -x
 
 STAKE=100
 BET=1
@@ -75,4 +75,12 @@ if [ $totalAmount -gt 0 ]
         fi
 }
 total
-
+if [ $totalAmount -gt 0 ]
+then
+	echo "Do you want to continue playing for next month y/n"
+        read ch
+	if (( $ch == 'y'))
+	then
+		total
+	fi
+fi
