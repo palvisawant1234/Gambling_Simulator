@@ -1,6 +1,5 @@
-#!/bin/bash -x
 
-DAY=0
+
 STAKE=100
 BET=1
 MAXLIMIT=$(($STAKE + $(($STAKE * 50 / 100)) ))
@@ -9,10 +8,8 @@ MINLIMIT=$(($STAKE - $(($STAKE * 50 / 100)) ))
 bet(){
         if [ $((RANDOM % 2)) -eq 1 ]
         then
-                echo "You Won"
                 STAKE=$(($STAKE + $BET))
         else
-                echo "You Loose"
                 STAKE=$(($STAKE - $BET))
         fi
 }
@@ -23,7 +20,22 @@ day(){
         do
                 bet
         done
-        echo "Your final stake = $STAKE"
+	actualGain=$(($STAKE-100))
 }
-day
+
+total(){
+for ((i=1;i<=20;i++))
+do
+	day
+	echo "Day:$i	Stake:$STAKE"
+	totalAmount=$(($totalAmount+$actualGain))
+done
+if [ $totalAmount -gt 0 ]
+	then
+		echo "Total amount won in 20 days: $totalAmount"
+        else
+                echo "Total amount lost in 20 days: $totalAmount"
+        fi
+}
+total
 
