@@ -24,17 +24,27 @@ day(){
 }
 
 total(){
-for ((i=1;i<=20;i++))
+for ((i=1;i<=30;i++))
 do
 	day
 	echo "Day:$i	Stake:$STAKE"
+	if [ $STAKE -eq 150 ]
+	then 
+		WON=$(($WON + 50))
+		winDay=$(($winDay + 1))
+	else
+		LOSE=$(($LOSE + 50))
+		loseDay=$(($loseDay + 1))
+	fi
 	totalAmount=$(($totalAmount+$actualGain))
 done
+echo "Total number of days won in month is $winDay and amount gained is $WON"
+echo "Total number of days loose in month is $loseDay and amount loss is $LOSE"
 if [ $totalAmount -gt 0 ]
 	then
-		echo "Total amount won in 20 days: $totalAmount"
+		echo "Total amount won in month: $totalAmount"
         else
-                echo "Total amount lost in 20 days: $totalAmount"
+                echo "Total amount lost in month: $totalAmount"
         fi
 }
 total
